@@ -8,6 +8,7 @@ import { ScanCodeComponent } from './scan-code/scan-code.component';
 import { VerifyComponent } from './verify/verify.component';
 import { HttpClientModule } from "@angular/common/http";
 import { VerifyCompleteComponent } from './verify-complete/verify-complete.component';
+import { ScanInputService } from './utils/scan-input.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { VerifyCompleteComponent } from './verify-complete/verify-complete.compo
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ScanInputService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

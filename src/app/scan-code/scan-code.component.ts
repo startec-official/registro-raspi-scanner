@@ -1,20 +1,28 @@
-import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScanInputService } from '../utils/scan-input.service';
 
 @Component({
   selector: 'app-scan-code',
   templateUrl: './scan-code.component.html',
   styleUrls: ['./scan-code.component.css']
 })
-export class ScanCodeComponent implements OnInit {
+export class ScanCodeComponent implements OnInit, DoCheck {
   code : string;
   termDetCt : number;
+  inputDisabled : boolean;
 
-  constructor( private router : Router ) {}
-
+  constructor( private router : Router,
+               public inputHandler : ScanInputService ) {}
+  
   ngOnInit(): void {
     this.code = "";
     this.termDetCt = 0;
+    this.inputDisabled = this.inputHandler.disabledState;
+  }
+
+  ngDoCheck(): void {
+    this.inputDisabled = this.inputHandler.disabledState;
   }
 
   sendData() : void {

@@ -1,6 +1,6 @@
 <div class="container-fluid main-wrapper">
-  <div class="row my-auto text-center">
-    <div class="col-sm-12">
+  <div class="row h-100">
+    <div class="col-sm-12 my-auto text-center">
       <h1>Ready for Next Customer</h1>
       <h2>Please present your barcode</h2>
       <div class="form-group">
@@ -10,11 +10,14 @@
                class="form-control"
                name="code"
                id="code" 
+               autocomplete="off"
+               [disabled]="inputDisabled"
                [(ngModel)]="code"
                (keypress)="onInputChanged($event)"
                #codeField>
 
-        <small id="helpId" class="form-text text-muted">Help text</small>
+        <small id="helpId" class="form-text text-muted">Make sure box is highlighted...</small>
+        <p>{{this.inputDisabled}}</p>
       </div>
     </div>
   </div>

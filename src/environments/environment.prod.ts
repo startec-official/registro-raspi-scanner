@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  localhost : "192.168.1.20",
+  localhost : "localhost",
   port : 3000
 };
