@@ -1,0 +1,44 @@
+<div class="container-fluid" *ngIf="dataReady">
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <h1>Verify Info</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <strong>Name:</strong>
+        </div>
+        <div class="col-sm-10">
+            {{ this.currentUser.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <strong>Age:</strong>
+        </div>
+        <div class="col-sm-10">
+            {{ this.currentUser.age }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <strong>Sex:</strong>
+        </div>
+        <div class="col-sm-10">
+            {{ this.currentUser.sex }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <strong>Address:</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ this.currentUser.address }}
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-lg btn-success m-2 button-right" (click)="saveData()">Correct</button>
+<button class="btn btn-lg btn-warning m-2 button-left" (click)="tryAgain()">Try Again</button>

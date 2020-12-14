@@ -1,0 +1,7 @@
+<div class="form-group">
+    <label for="code"></label>
+    <input type="text"
+      class="form-control" name="code" id="code" [(ngModel)]="code" (keypress)="onInputChanged($event)">
+    <small id="helpId" class="form-text text-muted">Help text</small>
+  </div>
+  <div>{{this.code}}</div>
