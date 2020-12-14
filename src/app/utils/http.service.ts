@@ -11,7 +11,9 @@ export class HttpService {
   constructor( private http : HttpClient ) { }
 
   saveData( userToSave : User ) {
-    return this.http.post( `http://${environment.localhost}:${environment.port}/save` , JSON.stringify(userToSave) , {
+    let address : string = `http://${environment.localhost}:${environment.port}/save`;
+    console.log(address);
+    return this.http.post( address , JSON.stringify(userToSave) , {
       headers : { 'Content-Type' : 'application/json' },
       responseType : 'text'
     });

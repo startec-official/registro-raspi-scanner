@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { HttpService } from '../utils/http.service';
 import { User } from '../utils/user';
 
@@ -12,6 +13,7 @@ export class VerifyComponent implements OnInit {
 
   currentUser : User;
   dataReady : boolean;
+  sendDataObs: Observable<string>;
 
   constructor( private route : ActivatedRoute,
                private router : Router,
@@ -27,8 +29,8 @@ export class VerifyComponent implements OnInit {
       this.currentUser.age = parseInt(parsedData[1]);
       this.currentUser.birthdate = parsedData[2];
       this.currentUser.sex = parsedData[3];
-      this.currentUser.address = parsedData[4];
-      this.currentUser.phoneNumber = parsedData[5];
+      this.currentUser.phoneNumber = parsedData[4];
+      this.currentUser.address = parsedData[5];
 
       this.dataReady = true;
     });
@@ -37,14 +39,10 @@ export class VerifyComponent implements OnInit {
   saveData() {
     console.log('data sent to database...');
     this.dataReady = false;
-    for (const property in this.currentUser) {
-      // TODO : encrypt each property here
-      this.currentUser[property] = property;
-    }
-    console.log(this.currentUser);
-    this.httpService.saveData(this.currentUser).subscribe((response)=>{
-      console.log(response);
+    this.sendDataObs = this.httpService.saveData(this.currentUser);
+    this.sendDataObs.subscribe((response : string)=>{
       this.dataReady = true;
+      console.log(response);
     });
   }
 
