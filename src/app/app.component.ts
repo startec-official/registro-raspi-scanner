@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { ScanInputService } from './utils/scan-input.service';
 
 @Component({
@@ -7,14 +8,21 @@ import { ScanInputService } from './utils/scan-input.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor( public inputHandler : ScanInputService ) {}
 
-  onActivate(event : any) {
-    if( event.constructor.name == 'ScanCodeComponent' ) {
-      this.inputHandler.disabledState = false;  
-    }
-    else {
-      this.inputHandler.disabledState = true;
-    }
+  title="secure-scan-raspi-scanner";
+
+  constructor( public inputHandler : ScanInputService,
+               router : Router ) {
+    router.events.subscribe( (event ) => {
+      if( event instanceof NavigationEnd ) {
+        if( event.urlAfterRedirects == '/scan' ) {
+          console.log( 'you got scanned...' );
+          this.inputHandler.disabledState = false;
+        }
+        else {
+          this.inputHandler.disabledState = true;
+        }
+      }
+    });
   }
 }

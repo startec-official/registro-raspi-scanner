@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CryptoService } from '../utils/crypto.service';
@@ -16,6 +16,9 @@ export class VerifyComponent implements OnInit {
   dataReady : boolean;
   sendDataObs: Observable<string>;
   reattemptDialogShow : boolean;
+  disableTryAgain : boolean;
+  accScanStarted : boolean;
+  waitObs: Observable<boolean>;
 
   constructor( private route : ActivatedRoute,
                private router : Router,
@@ -25,7 +28,17 @@ export class VerifyComponent implements OnInit {
   ngOnInit(): void {
     this.dataReady = false;
     this.reattemptDialogShow = false;
+    this.disableTryAgain = false;
+    this.accScanStarted = false;
     this.currentUser = new User('',-1,'','','','');
+
+    this.waitObs = new Observable( subscriber => {
+      setTimeout(() => {
+        subscriber.next(true);
+        subscriber.complete();
+      }, 5000);
+    });
+
     this.route.params.subscribe(( data ) => {
       let parsedString = this.cryptoService.decryptQr( data.input.toString() );
 
@@ -59,5 +72,20 @@ export class VerifyComponent implements OnInit {
 
   tryAgain() {
     this.router.navigateByUrl('/scan');
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent( event ) {
+    if( !this.accScanStarted ) {
+      console.log('wait started...');
+      this.accScanStarted = true;
+      this.disableTryAgain = true;
+      this.waitObs.subscribe((data: any) => {
+        console.log(data);
+        this.disableTryAgain = false;
+        this.accScanStarted = false;
+        console.log('wait finished...');
+      });
+    }
   }
 }
