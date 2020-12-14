@@ -19,15 +19,16 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataReady = false;
-    this.currentUser = new User('',-1,'','','');
+    this.currentUser = new User('',-1,'','','','');
     this.route.params.subscribe(( data ) => {
       // TODO : decode the data using the last 4 characters
       const parsedData : string[] = data.input.toString().split('|'); // UPGRADE : set delimiter to custom
       this.currentUser.name = parsedData[0];
       this.currentUser.age = parseInt(parsedData[1]);
-      this.currentUser.sex = parsedData[2];
-      this.currentUser.address = parsedData[3];
-      this.currentUser.phoneNumber = parsedData[4];
+      this.currentUser.birthdate = parsedData[2];
+      this.currentUser.sex = parsedData[3];
+      this.currentUser.address = parsedData[4];
+      this.currentUser.phoneNumber = parsedData[5];
 
       this.dataReady = true;
     });
