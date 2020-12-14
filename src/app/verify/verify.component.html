@@ -1,3 +1,11 @@
+<div class="container-fluid" *ngIf="reattemptDialogShow">
+    <div class="row text-center h-100">
+        <div class="col-sm-12">
+            <h1>Error with scanned code. Please try again...</h1>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid" *ngIf="dataReady">
     <div class="row text-center">
         <div class="col-sm-12">
@@ -56,5 +64,5 @@
     </div>
 </div>
 
-<button class="btn btn-lg btn-success m-2 button-right" (click)="saveData()">Correct</button>
+<button class="btn btn-lg btn-success m-2 button-right" (click)="saveData()" [disabled]="reattemptDialogShow">Correct</button>
 <button class="btn btn-lg btn-warning m-2 button-left" (click)="tryAgain()">Try Again</button>

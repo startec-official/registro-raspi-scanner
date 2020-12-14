@@ -15,6 +15,7 @@ export class VerifyComponent implements OnInit {
   currentUser : User;
   dataReady : boolean;
   sendDataObs: Observable<string>;
+  reattemptDialogShow : boolean;
 
   constructor( private route : ActivatedRoute,
                private router : Router,
@@ -23,20 +24,25 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataReady = false;
+    this.reattemptDialogShow = false;
     this.currentUser = new User('',-1,'','','','');
     this.route.params.subscribe(( data ) => {
-      // TODO : decode the data using the last 4 characters
       let parsedString = this.cryptoService.decryptQr( data.input.toString() );
-      console.log( parsedString );
-      const parsedData : string[] = parsedString.split('|'); // UPGRADE : set delimiter to custom
-      this.currentUser.name = parsedData[0];
-      this.currentUser.age = parseInt(parsedData[1]);
-      this.currentUser.birthdate = parsedData[2];
-      this.currentUser.sex = parsedData[3];
-      this.currentUser.phoneNumber = parsedData[4];
-      this.currentUser.address = parsedData[5];
 
-      this.dataReady = true;
+      if( parsedString == "error" ) {
+        this.reattemptDialogShow = true;
+      }
+      else {
+        const parsedData : string[] = parsedString.split('|'); // UPGRADE : set delimiter to custom
+        this.currentUser.name = parsedData[0];
+        this.currentUser.age = parseInt(parsedData[1]);
+        this.currentUser.birthdate = parsedData[2];
+        this.currentUser.sex = parsedData[3];
+        this.currentUser.phoneNumber = parsedData[4];
+        this.currentUser.address = parsedData[5];
+
+        this.dataReady = true;
+      }
     });
   }
 
