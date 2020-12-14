@@ -1,7 +1,21 @@
-<div class="form-group">
-    <label for="code"></label>
-    <input type="text"
-      class="form-control" name="code" id="code" [(ngModel)]="code" (keypress)="onInputChanged($event)">
-    <small id="helpId" class="form-text text-muted">Help text</small>
+<div class="container-fluid main-wrapper">
+  <div class="row my-auto text-center">
+    <div class="col-sm-12">
+      <h1>Ready for Next Customer</h1>
+      <h2>Please present your barcode</h2>
+      <div class="form-group">
+        <label for="code"></label>
+
+        <input type="text"
+               class="form-control"
+               name="code"
+               id="code" 
+               [(ngModel)]="code"
+               (keypress)="onInputChanged($event)"
+               #codeField>
+
+        <small id="helpId" class="form-text text-muted">Help text</small>
+      </div>
+    </div>
   </div>
-  <div>{{this.code}}</div>
+</div>

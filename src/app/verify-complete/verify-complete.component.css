@@ -1,0 +1,8 @@
+.main-wrapper {
+    height: 100vh;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 1em;
+}

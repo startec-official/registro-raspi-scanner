@@ -52,6 +52,7 @@ export class VerifyComponent implements OnInit {
     this.sendDataObs = this.httpService.saveData(this.currentUser);
     this.sendDataObs.subscribe((response : string)=>{
       this.dataReady = true;
+      this.router.navigateByUrl('/complete');
       console.log(response);
     });
   }

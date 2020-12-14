@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,5 +29,10 @@ export class ScanCodeComponent implements OnInit {
         this.sendData();
       }
     }
+  }
+
+  @ViewChild("codeField") codeInput: ElementRef;
+    ngAfterViewInit() {
+    this.codeInput.nativeElement.focus();
   }
 }

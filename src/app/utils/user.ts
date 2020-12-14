@@ -5,6 +5,7 @@ interface UserType {
     sex : string;
     address : string;
     phoneNumber : string;
+    datetime? : string;
 }
 
 export class User implements UserType {
