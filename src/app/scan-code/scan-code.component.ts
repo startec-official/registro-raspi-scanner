@@ -31,6 +31,10 @@ export class ScanCodeComponent implements OnInit, DoCheck {
     this.router.navigate(['/verify' , this.code ]);
   }
 
+  clearInput() : void {
+    this.code = '';
+  }
+
   onInputChanged( event : Event ) {
     if( this.code.charAt(this.code.length-1) == environment.terminator ) {
       this.termDetCt ++;

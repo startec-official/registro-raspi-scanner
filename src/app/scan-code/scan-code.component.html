@@ -5,8 +5,11 @@
       <h2>Please present your barcode</h2>
       <div class="form-group">
         <label for="code"></label>
-
-        <input type="text"
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" (click)="clearInput()">Clear</button>
+          </div>
+          <input type="text"
                class="form-control"
                name="code"
                id="code" 
@@ -15,7 +18,7 @@
                [(ngModel)]="code"
                (keypress)="onInputChanged($event)"
                #codeField>
-
+        </div>
         <small id="helpId" class="form-text text-muted">Make sure box is highlighted...</small>
       </div>
     </div>
