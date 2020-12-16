@@ -1,5 +1,6 @@
 import { Component, OnInit , ViewChild, ElementRef, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { ScanInputService } from '../utils/scan-input.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class ScanCodeComponent implements OnInit, DoCheck {
   }
 
   onInputChanged( event : Event ) {
-    if( this.code.charAt(this.code.length-1) == "<" ) {
+    if( this.code.charAt(this.code.length-1) == environment.terminator ) {
       this.termDetCt ++;
       if( this.termDetCt >= 2 ) {
         this.sendData();

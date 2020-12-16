@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CryptoService } from '../utils/crypto.service';
 import { HttpService } from '../utils/http.service';
 import { User } from '../utils/user';
@@ -46,7 +47,7 @@ export class VerifyComponent implements OnInit {
         this.reattemptDialogShow = true;
       }
       else {
-        const parsedData : string[] = parsedString.split('|'); // UPGRADE : set delimiter to custom
+        const parsedData : string[] = parsedString.split( environment.delimiter ); // UPGRADE : set delimiter to custom
         this.currentUser.name = parsedData[0];
         this.currentUser.age = parseInt(parsedData[1]);
         this.currentUser.birthdate = parsedData[2];
