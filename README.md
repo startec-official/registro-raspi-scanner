@@ -35,6 +35,6 @@ Contact Us through [startec.innovations@gmail.com](mailto:startec.innovations@gm
 
 LICENSE and Use
 -------
-Please refer to the LICENSE.md file for more information.
+Please refer to the `LICENSE.md` file for more information.
 
 This project is covered by the MIT License. © 2020 | Startec Innovations
