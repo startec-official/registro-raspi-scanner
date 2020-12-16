@@ -1,13 +1,15 @@
 # Raspberry Pi Client for Device Kiosk
-## STARTEC REGISTRO
+
 
 Client-side code built in Angular for a Raspberry Pi Startec REGISTRO Device Kiosk. 
+
+A REGISTRO Kiosk is a QR ID data parser (scanner) and storage server for the contact tracing system. The QR scanner retrieves customer information by scanning a QR code customers provide. This information is then stored by the device server into a database in memory. Data can be easily accessed and downloaded (remotely) from the device through the data administration portal (included in this codebase) for use in contact tracing.
+
+## STARTEC REGISTRO
 
 Startec REGISTRO is an open-source COVID case contact tracing system for small and medium sized establishments and organizations, created by Startec Innovations, a technology adoption and innovation consultancy firm based in the Philippines. 
 
 Learn more about Startec and REGISTRO [here](https://www.facebook.com/startec.ideators).
-
-A REGISTRO Kiosk is a QR ID data parser (scanner) and storage server for the contact tracing system. The QR scanner retrieves customer information by scanning a QR code customers provide. This information is then stored by the device server into a database in memory. Data can be easily accessed and downloaded (remotely) from the device through the data administration portal (included in this codebase) for use in contact tracing.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
 
