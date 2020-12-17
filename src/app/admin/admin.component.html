@@ -1,0 +1,64 @@
+<ng-container *ngIf="!isLoading">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Data Management</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Download Data</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="custom-control custom-switch col-sm-12 mx-3">
+                <input type="checkbox" class="custom-control-input" id="chooseDataMode">
+                <label class="custom-control-label" for="chooseDataMode">Encrypt</label>
+              </div>
+        </div>
+        <div class="row my-3">
+            <div class="form-group col-sm-4">
+                <label for="exampleFormControlFile1">Example file input</label>
+                <input type="file" class="form-control-file" id="privateKey" name="privateKey" accept="pem" (change)="handleFileInput($event.target.files)">
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-lg btn-outline-primary" [disabled]="fileToUpload == undefined" (click)="startUploadKey()">Upload Key</button>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-lg btn-primary">Download Encrypted</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container mx-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Key Generation</h2>
+            </div>
+        </div>
+        <div class="alert alert-primary my-3" role="alert">
+            <h4 class="alert-heading">Important Information</h4>
+            <p>Before generating keys, learn more about how to properly distribute them to implement a system...</p>
+            <hr>
+            <p class="mb-0">Use the button below when you're ready to proceed in order to generate key pairs</p>
+          </div>
+          <div class="row text-center">
+              <div class="col-sm-12">
+                  <button class="btn btn-lg btn-warning mb-3">Generate Keys</button>
+              </div>
+          </div>
+    </div>
+</ng-container>
+
+<div class="container" style="height: 100vh;" *ngIf="isLoading">
+    <div class="row h-100 text-center">
+        <div class="col-sm-12 my-auto">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,6 @@ import { ScanInputService } from './utils/scan-input.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
   title="secure-scan-raspi-scanner";
 
   constructor( public inputHandler : ScanInputService,
