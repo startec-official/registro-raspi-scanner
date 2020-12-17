@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user';
@@ -43,13 +43,6 @@ export class HttpService {
   generateKeys() {
     return this.http.post( `${this.serverURL}/generate` , null , {
       responseType : 'text'
-    });
-  }
-  
-  getIpAddress() : Observable<String> {
-    console.log(this.serverURL);
-    return this.http.get( `${this.serverURL}/ip` , {
-      responseType: 'text'
     });
   }
 }

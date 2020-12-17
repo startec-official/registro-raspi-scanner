@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
 import { NavigationEnd, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { HttpService } from './utils/http.service';
 import { ScanInputService } from './utils/scan-input.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
 
   constructor( public inputHandler : ScanInputService,
                router : Router,
-               private httpService : HttpService ) {
+               private httpService : HttpService,
+               private loc : Location ) {
     router.events.subscribe( (event ) => {
       if( event instanceof NavigationEnd ) {
         if( event.urlAfterRedirects == '/scan' ) {
@@ -28,12 +30,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpService.getIpAddress().subscribe((ipAddress)=>{
-      this.httpService.serverURL = `http://${ipAddress.trim()}:${environment.port}`;
-      console.log(`new server URL: ${this.httpService.serverURL}`);
-    },
-    (err)=>{
-      console.log(err);
-    });
+    const angularRoute = this.loc.path();
+    const url = window.location.href;
+    var nodeHost = url.replace(angularRoute, '').split(':')[1];
+    while( nodeHost.indexOf('/') > -1 )
+      nodeHost = nodeHost.replace('/','');
+    this.httpService.serverURL = `http://${nodeHost}:${environment.port}`;
+    console.log(`new server URL: ${this.httpService.serverURL}`);
   }
 }

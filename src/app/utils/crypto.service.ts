@@ -10,7 +10,7 @@ export class CryptoService {
   constructor() { }
 
   decryptQr( input : string ) {
-    let ciphertext : string = input.substring(0,input.length - environment.charKeyCount); // UPGRADE : custom key lengths
+    let ciphertext : string = input.substring(0,input.length - environment.charKeyCount);
     let key : string = input.substring(input.length - environment.charKeyCount , input.length);
     try {
       return CryptoJS.AES.decrypt( ciphertext , key ).toString(CryptoJS.enc.Utf8);
