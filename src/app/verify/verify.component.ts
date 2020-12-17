@@ -78,14 +78,11 @@ export class VerifyComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent( event ) {
     if( !this.accScanStarted ) {
-      console.log('wait started...');
       this.accScanStarted = true;
       this.disableTryAgain = true;
       this.waitObs.subscribe((data: any) => {
-        console.log(data);
         this.disableTryAgain = false;
         this.accScanStarted = false;
-        console.log('wait finished...');
       });
     }
   }

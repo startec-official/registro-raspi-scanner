@@ -15,7 +15,6 @@ export class AppComponent {
     router.events.subscribe( (event ) => {
       if( event instanceof NavigationEnd ) {
         if( event.urlAfterRedirects == '/scan' ) {
-          console.log( 'you got scanned...' );
           this.inputHandler.disabledState = false;
         }
         else {

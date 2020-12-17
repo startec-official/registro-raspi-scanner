@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,6 @@ export class HttpService {
 
   saveData( userToSave : User ) {
     let address : string = `${this.serverURL}/save`;
-    console.log(address);
     return this.http.post( address , JSON.stringify(userToSave) , {
       headers : { 'Content-Type' : 'application/json' },
       responseType : 'text'
@@ -27,5 +26,23 @@ export class HttpService {
     return this.http.post( `${this.serverURL}/upload` , formData , {
       responseType : 'text'
     } );
+  }
+
+  downloadData() : Observable<Blob> {
+    return this.http.get( `${this.serverURL}/download/encrypted` , {
+      responseType : 'blob'
+    });
+  }
+
+  downloadRawData() : Observable<Blob> {
+    return this.http.get( `${this.serverURL}/download/raw`, {
+      responseType : 'blob'
+    });
+  }
+
+  generateKeys() {
+    return this.http.post( `${this.serverURL}/generate` , null , {
+      responseType : 'text'
+    });
   }
 }

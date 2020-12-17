@@ -13,22 +13,37 @@
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row mb-5">
             <div class="custom-control custom-switch col-sm-12 mx-3">
-                <input type="checkbox" class="custom-control-input" id="chooseDataMode">
-                <label class="custom-control-label" for="chooseDataMode">Encrypt</label>
+                <input type="checkbox" class="custom-control-input" id="chooseDataMode" [(ngModel)]="isEncrypted">
+                <label class="custom-control-label" for="chooseDataMode">{{ isEncrypted ? 'Download Decrypted Data' : 'Download Raw' }}</label>
               </div>
         </div>
-        <div class="row my-3">
+        <div class="alert alert-danger my-3" role="alert" *ngIf="showErrorAlert">
+            <h4 class="alert-heading">Decryption Error</h4>
+            <p>We've encountered an error with trying to get your data. Please check you're using the correct key</p>
+        </div>
+        <div class="row my-3" *ngIf="isEncrypted">
             <div class="form-group col-sm-4">
-                <label for="exampleFormControlFile1">Example file input</label>
+                <label for="privateKey">Upload Private Key File</label>
                 <input type="file" class="form-control-file" id="privateKey" name="privateKey" accept="pem" (change)="handleFileInput($event.target.files)">
             </div>
             <div class="col-sm-4">
                 <button class="btn btn-lg btn-outline-primary" [disabled]="fileToUpload == undefined" (click)="startUploadKey()">Upload Key</button>
             </div>
             <div class="col-sm-4">
-                <button class="btn btn-lg btn-primary">Download Encrypted</button>
+                <button class="btn btn-lg btn-primary" type="button"  (click)="downloadData()" [disabled]="isGeneratingData || !enableDownloadButton">
+                    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true" *ngIf="isGeneratingData"></span>
+                    Download Decrypted Data
+                </button>
+            </div>
+        </div>
+        <div class="row my-3" *ngIf="!isEncrypted">
+            <div class="col-sm-12">
+                <button class="btn btn-lg btn-primary" type="button"  (click)="downloadRawData()" [disabled]="isGeneratingData">
+                    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true" *ngIf="isGeneratingData"></span>
+                    Download RAW Data
+                </button>
             </div>
         </div>
         <hr>
@@ -44,12 +59,15 @@
             <p>Before generating keys, learn more about how to properly distribute them to implement a system...</p>
             <hr>
             <p class="mb-0">Use the button below when you're ready to proceed in order to generate key pairs</p>
-          </div>
-          <div class="row text-center">
-              <div class="col-sm-12">
-                  <button class="btn btn-lg btn-warning mb-3">Generate Keys</button>
-              </div>
-          </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <button class="btn btn-lg btn-warning mb-3" type="button"  (click)="generateKeys()" [disabled]="isGeneratingKeys">
+                    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true" *ngIf="isGeneratingKeys"></span>
+                    Generate Keys
+                  </button>
+            </div>
+        </div>
     </div>
 </ng-container>
 
