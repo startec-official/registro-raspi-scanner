@@ -8,17 +8,21 @@ import { HttpService } from '../utils/http.service';
 })
 export class AdminComponent implements OnInit {
   
-  isLoading : boolean;
   fileToUpload : File;
   showErrorAlert : boolean;
   enableDownloadButton : boolean;
+
+  ipValue : string;
+
   isEncrypted : boolean;
+  isLoading : boolean;
   isGeneratingData : boolean;
   isGeneratingKeys : boolean;
 
   constructor( private httpService : HttpService ) { }
 
   ngOnInit(): void {
+    this.ipValue = '';
     this.isLoading = false;
     this.showErrorAlert = false;
     this.enableDownloadButton = false;
@@ -78,6 +82,15 @@ export class AdminComponent implements OnInit {
     this.httpService.generateKeys().subscribe((data) => {
       console.log(data);
       this.isGeneratingKeys = false;
+    });
+  }
+
+  getIPAddress() {
+    this.httpService.getIPAddress().subscribe((ipAddress) => {
+      this.ipValue = ipAddress;
+    },
+    (error) => {
+      this.ipValue = 'Cannot get IP address at this time. Check your network connection';
     });
   }
 }

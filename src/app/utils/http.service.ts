@@ -45,4 +45,10 @@ export class HttpService {
       responseType : 'text'
     });
   }
+
+  getIPAddress() : Observable<string> {
+    return this.http.get( `${this.serverURL}/ip` , {
+      responseType : 'text'
+    });
+  }
 }
