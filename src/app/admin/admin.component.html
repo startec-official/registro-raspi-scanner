@@ -67,6 +67,45 @@
             </div>
         </div>
         <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Printer Setup</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-borderless" *ngIf="printerList.length > 0">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Printer Name</th>
+                        <th scope="col">In Use</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let printer of printerList; index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{printerList[i]}}</td>
+                        <td>
+                          <h5 *ngIf="setPrinterButtonEnabled[i] == false">✔</h5>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" [disabled]="!setPrinterButtonEnabled[i]" (click)="setPrinter(i)">Use this Printer</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h5 class="text-muted text-center my-5" *ngIf="this.printerList.length == 0">Add a Printer with the button below....</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button class="btn btn-lg btn-outline-warning" (click)="goToLink('http://localhost:631/admin')">Add a Printer</button>
+            </div>
+        </div>
+        <hr>
     </div>
     <div class="container mx-5">
         <div class="row">

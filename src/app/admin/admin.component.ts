@@ -19,6 +19,9 @@ export class AdminComponent implements OnInit {
   isGeneratingData : boolean;
   isGeneratingKeys : boolean;
 
+  printerList : string[];
+  setPrinterButtonEnabled : boolean[];
+
   constructor( private httpService : HttpService ) { }
 
   ngOnInit(): void {
@@ -29,6 +32,9 @@ export class AdminComponent implements OnInit {
     this.isEncrypted = false;
     this.isGeneratingData = false;
     this.isGeneratingKeys = false;
+    this.printerList = [];
+    this.setPrinterButtonEnabled = [];
+    this.getPrinterList();
   }
 
   handleFileInput( files : FileList ) : void {
@@ -93,4 +99,30 @@ export class AdminComponent implements OnInit {
       this.ipValue = 'Cannot get IP address at this time. Check your network connection';
     });
   }
+
+  getPrinterList() {
+    this.httpService.getPrinters().subscribe((printersList) => {
+      for (const key in printersList) {
+        this.printerList.push(printersList[key]);
+      }
+      this.setPrinterButtonEnabled = this.printerList.map(() => true);
+      if( this.setPrinterButtonEnabled.length > 0 )
+        this.setPrinterButtonEnabled[0] = false;
+    });
+  }
+
+  setPrinter( printerIndex : number ) {
+    this.httpService.setPrinter( this.printerList[printerIndex] ).subscribe((data) => {
+      for (let i = 0; i < this.setPrinterButtonEnabled.length; i++) {this.setPrinterButtonEnabled[i] = true;} // set all to false
+      this.setPrinterButtonEnabled[printerIndex] = false;
+    },
+    (error) => {
+      console.log(error);
+      console.log('cannot set at this time...');
+    });
+  }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+}
 }

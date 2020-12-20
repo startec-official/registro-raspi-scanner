@@ -51,4 +51,16 @@ export class HttpService {
       responseType : 'text'
     });
   }
+
+  getPrinters() {
+    return this.http.get( `${this.serverURL}/print/printers` , {
+      responseType : 'json'
+    });
+  }
+
+  setPrinter(newPrinter : string ) {
+    return this.http.post( `${this.serverURL}/print/set/${newPrinter}` , null , {
+      responseType: 'text'
+    });
+  }
 }
