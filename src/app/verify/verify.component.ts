@@ -45,8 +45,8 @@ export class VerifyComponent implements OnInit {
 
     this.route.params.subscribe(( data ) => {
       this.printMode = data.mode;
-      var sampleData = 'U2FsdGVkX18X+uftbAFdVyy6Ot+hm42DLy9wPGepP3wdV0cPnrnNUdYCGapEBXmpE3WEv1cREdjQzNb7WUzOZxGPn+zsVe2Ah2LgEU8MnWFwWCjj7t4W036LW2h2rGcvG2pyTObay73rKWufezX+24wEGp9Cafn7yssv2uiLjld0cX0RazmGUUbZgKDAUyJe615O7f6Cyjfl2+hCkfW7Lg==X[!O';
-      let parsedString = this.cryptoService.decryptQr( sampleData );
+      // TODO : change sampleData back to scanned data
+      let parsedString = this.cryptoService.decryptQr( this.dataTransfer.transferData );
 
       if( parsedString == "error" ) {
         this.reattemptDialogShow = true;
