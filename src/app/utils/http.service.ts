@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, ObservableLike } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user';
 
@@ -12,7 +12,7 @@ export class HttpService {
 
   constructor( private http : HttpClient ) { }
 
-  saveData( userToSave : User ) {
+  saveData( userToSave : User ) : Observable<string> {
     let address : string = `${this.serverURL}/save`;
     return this.http.post( address , JSON.stringify(userToSave) , {
       headers : { 'Content-Type' : 'application/json' },
@@ -20,7 +20,7 @@ export class HttpService {
     });
   }
 
-  uploadKey( fileToUpload : File ) { // FIXME : add data body
+  uploadKey( fileToUpload : File ) : Observable<string> { // FIXME : add data body
     const formData = new FormData();
     formData.append('fileKey' , fileToUpload , fileToUpload.name); // the name of the field must match that in the server
     return this.http.post( `${this.serverURL}/upload` , formData , {
@@ -40,7 +40,7 @@ export class HttpService {
     });
   }
 
-  generateKeys() {
+  generateKeys() : Observable<string> {
     return this.http.post( `${this.serverURL}/generate` , null , {
       responseType : 'text'
     });
@@ -58,9 +58,16 @@ export class HttpService {
     });
   }
 
-  setPrinter(newPrinter : string ) {
+  setPrinter(newPrinter : string ) : Observable<string> {
     return this.http.post( `${this.serverURL}/print/set/${newPrinter}` , null , {
       responseType: 'text'
+    });
+  }
+
+  printData( dataBody : User ) : Observable<string> {
+    return this.http.post( `${this.serverURL}/print/send` , JSON.stringify(dataBody) , {
+      headers : { 'Content-Type' : 'application/json' },
+      responseType : 'text'
     });
   }
 }

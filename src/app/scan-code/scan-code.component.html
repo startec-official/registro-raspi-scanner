@@ -1,7 +1,7 @@
 <div class="container-fluid main-wrapper">
   <div class="row h-100">
     <div class="col-sm-12 my-auto text-center">
-      <h1>Ready for Next Customer</h1>
+      <h1>{{ !this.printMode ? 'Ready for Next Customer' : 'Ready to print Next Code...' }}</h1>
       <h2>Please present your barcode</h2>
       <div class="form-group">
         <label for="code"></label>
@@ -14,7 +14,7 @@
                name="code"
                id="code" 
                autocomplete="off"
-               [disabled]="inputDisabled"
+               [disabled]="inputDisabled || noPrinters"
                [(ngModel)]="code"
                (keypress)="onInputChanged($event)"
                #codeField>

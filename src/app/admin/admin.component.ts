@@ -122,7 +122,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  goToLink(url: string){
+  goToLink(url: string) {
     window.open(url, "_blank");
-}
+  }
 }

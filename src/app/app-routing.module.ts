@@ -7,11 +7,11 @@ import { VerifyComponent } from './verify/verify.component';
 
 
 const routes: Routes = [
-  { path : 'scan' , component : ScanCodeComponent },
-  { path : 'verify/:input' , component : VerifyComponent },
+  { path : 'scan/:mode' , component : ScanCodeComponent },
+  { path : 'verify/:mode' , component : VerifyComponent },
   { path : 'complete' , component : VerifyCompleteComponent },
   { path : 'admin' , component : AdminComponent },
-  { path : '' , redirectTo: '/scan' , pathMatch : 'full' }
+  { path : '' , redirectTo: '/scan/code' , pathMatch : 'full' }
 ];
 
 @NgModule({

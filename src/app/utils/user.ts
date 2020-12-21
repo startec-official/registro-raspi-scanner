@@ -21,7 +21,7 @@ export class User implements UserType {
         this.age = _age;
         this.birthdate = _birthdate;
         this.sex = _sex;
-        this.address = _address;
         this.phoneNumber = _phoneNumber;
+        this.address = _address;
     }
 }

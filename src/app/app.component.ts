@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
                private loc : Location ) {
     router.events.subscribe( (event ) => {
       if( event instanceof NavigationEnd ) {
-        if( event.urlAfterRedirects == '/scan' ) {
+        if( event.urlAfterRedirects == '/scan/code' || event.urlAfterRedirects == '/scan/print' ) {
           this.inputHandler.disabledState = false;
         }
         else {

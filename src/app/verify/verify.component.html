@@ -64,5 +64,20 @@
     </div>
 </div>
 
-<button class="btn btn-lg btn-success m-2 button-right" (click)="saveData()" [disabled]="reattemptDialogShow" [disabled]="!dataReady">Correct</button>
+<div class="container-fluid" style="height: 100vh;" *ngIf="!dataReady">
+    <div class="row h-100">
+        <div class="col-sm-12 my-auto text-center">
+            <div class="spinner-border mb-5" style="width: 5rem; height: 5rem;" role="status">
+                <span class="sr-only">{{ this.printMode ? 'Printing your ID....' : 'Sending Data...' }}</span>
+            </div>
+            <div class="spa">{{ this.printMode ? 'Printing your ID....' : 'Sending Data...' }}</div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-lg btn-success m-2 button-right" 
+        (click)="this.printMode ? printData() : saveData()" 
+        [disabled]="!dataReady || reattemptDialogShow">
+            Correct
+</button>
 <button class="btn btn-lg btn-warning m-2 button-left" (click)="tryAgain()" [disabled]="disableTryAgain">Try Again</button>
