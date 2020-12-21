@@ -9,7 +9,7 @@ import { VerifyComponent } from './verify/verify.component';
 const routes: Routes = [
   { path : 'scan/:mode' , component : ScanCodeComponent },
   { path : 'verify/:mode' , component : VerifyComponent },
-  { path : 'complete' , component : VerifyCompleteComponent },
+  { path : 'complete/:mode' , component : VerifyCompleteComponent },
   { path : 'admin' , component : AdminComponent },
   { path : '' , redirectTo: '/scan/code' , pathMatch : 'full' }
 ];

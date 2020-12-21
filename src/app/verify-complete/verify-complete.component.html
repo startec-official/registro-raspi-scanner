@@ -1,9 +1,9 @@
 <div class="container main-wrapper">
     <div class="row h-100">
         <div class="col-sm-12 my-auto text-center">
-            <h1>You many now enter the establishment!</h1>
+            <h1>{{ printMode ? 'Please wait while we print your ID...' : 'You many now enter the establishment!' }}</h1>
             <br>
-            <img src="assets/tick.png" alt="verified-symbol">
+            <img [src]="printMode ? 'assets/printer.png' : 'assets/tick.png'" alt="verified-symbol">
         </div>
     </div>
 </div>

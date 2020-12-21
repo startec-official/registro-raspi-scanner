@@ -45,7 +45,7 @@ export class VerifyComponent implements OnInit {
 
     this.route.params.subscribe(( data ) => {
       this.printMode = data.mode;
-      // TODO : change sampleData back to scanned data
+      console.log(data.mode);
       let parsedString = this.cryptoService.decryptQr( this.dataTransfer.transferData );
 
       if( parsedString == "error" ) {
@@ -71,7 +71,7 @@ export class VerifyComponent implements OnInit {
     this.sendDataObs = this.httpService.saveData(this.currentUser);
     this.sendDataObs.subscribe((response : string)=>{
       this.dataReady = true;
-      this.router.navigateByUrl('/complete');
+      this.router.navigateByUrl('/complete/code');
       console.log(response);
     });
   }
@@ -82,7 +82,7 @@ export class VerifyComponent implements OnInit {
     this.httpService.printData( this.currentUser ).subscribe((response) => {
       console.log(response);
       this.dataReady = true;
-      // TODO: set timeout function here for waiting for print to complete
+      this.router.navigateByUrl('/complete/print');
     }, (error) => {
       console.log('Could not connect to printer at this time...');
       throw error;
