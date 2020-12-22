@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../utils/http.service';
+import { RemoteHttpService } from '../utils/remote-http.service';
+import { map , catchError } from 'rxjs/operators';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -18,11 +21,22 @@ export class AdminComponent implements OnInit {
   isLoading : boolean;
   isGeneratingData : boolean;
   isGeneratingKeys : boolean;
+  isUploadingData : boolean;
 
   printerList : string[];
   setPrinterButtonEnabled : boolean[];
 
-  constructor( private httpService : HttpService ) { }
+  remoteHost : { hostname : string , ip : string };
+  remoteHostSet : boolean;
+  
+  showErrorAlertHost: boolean;
+  showErrorAlertUpload : boolean;
+  showSetHost : boolean;
+
+  uploadProgress : number;
+
+  constructor( private httpService : HttpService,
+               private remoteService : RemoteHttpService ) { }
 
   ngOnInit(): void {
     this.ipValue = '';
@@ -34,7 +48,15 @@ export class AdminComponent implements OnInit {
     this.isGeneratingKeys = false;
     this.printerList = [];
     this.setPrinterButtonEnabled = [];
+    this.remoteHost  = { hostname : '' , ip : '' };
+    this.remoteHostSet = false;
+    this.showErrorAlertHost = false;
+    this.showSetHost = false;
+    this.isUploadingData = false;
+    this.showErrorAlertUpload = false;
+    this.uploadProgress = 0;
     this.getPrinterList();
+    this.getRemoteHost();
   }
 
   handleFileInput( files : FileList ) : void {
@@ -70,7 +92,7 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  downloadRawData() {
+  downloadRawData() : void {
     this.isGeneratingData = true;
     this.httpService.downloadRawData().subscribe((blob)=>{
       this.isGeneratingData = false;
@@ -91,7 +113,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  getIPAddress() {
+  getIPAddress() : void {
     this.httpService.getIPAddress().subscribe((ipAddress) => {
       this.ipValue = ipAddress;
     },
@@ -100,7 +122,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  getPrinterList() {
+  getPrinterList() : void {
     this.httpService.getPrinters().subscribe((printersList) => {
       for (const key in printersList) {
         this.printerList.push(printersList[key]);
@@ -111,7 +133,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  setPrinter( printerIndex : number ) {
+  setPrinter( printerIndex : number ) : void {
     this.httpService.setPrinter( this.printerList[printerIndex] ).subscribe((data) => {
       for (let i = 0; i < this.setPrinterButtonEnabled.length; i++) {this.setPrinterButtonEnabled[i] = true;} // set all to false
       this.setPrinterButtonEnabled[printerIndex] = false;
@@ -119,6 +141,50 @@ export class AdminComponent implements OnInit {
     (error) => {
       console.log(error);
       console.log('cannot set at this time...');
+    });
+  }
+
+  getRemoteHost() : void {
+    this.remoteService.getRemoteHost().subscribe(host => {
+      this.remoteHost = host;
+      this.remoteHostSet = true;
+    },
+    (error) => {
+      console.log(error);
+      this.remoteHostSet = false;
+    });
+  }
+
+  setRemoteHost( _hostname : string , _ip : string , _user : string , _password : string ) {
+    this.showErrorAlertHost = false;
+    this.remoteService.setRemoteHost( { hostname : _hostname , ip : _ip , user: _user , password : _password } ).subscribe((resp) => {
+      console.log(resp);
+      this.remoteHostSet = true;
+      this.showSetHost = false;
+      this.remoteHost = { hostname : _hostname , ip : _ip };
+    },
+    (error) => {
+      this.showErrorAlertHost = true;
+      console.log(error);
+    });
+  }
+
+  uploadData() { // TODO : leanify code
+    this.showErrorAlertUpload = false;
+    this.isUploadingData = true;
+    this.remoteService.testConnection().subscribe((resp) => {
+      this.remoteService.sendDataToHost().subscribe((res) => {
+        console.log(res);
+        this.isUploadingData = false;
+      },
+      (err) => {
+        this.showErrorAlertUpload = true;
+        console.log(err);
+      });
+    },
+    (error) => {
+      this.showErrorAlertUpload = true;
+      console.log(error);
     });
   }
 

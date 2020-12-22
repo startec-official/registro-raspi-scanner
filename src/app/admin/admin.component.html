@@ -69,6 +69,67 @@
         <hr>
         <div class="row">
             <div class="col-sm-12">
+                <h2>Upload Data</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong>Remote Host Name:</strong> {{ remoteHostSet ? remoteHost.hostname : 'No host set...'}}
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-outline-primary" (click)="showSetHost = !showSetHost">
+                    {{ this.remoteHostSet ? 'Change Host' : 'Set Host' }}
+                </button>
+            </div>
+        </div>
+        <div class="row" *ngIf="showSetHost">
+            <div class="col-sm-12">
+                <hr>
+                <div class="alert alert-danger my-3" role="alert" *ngIf="showErrorAlertHost"> 
+                    <h4 class="alert-heading">Set Host Remote Error</h4>
+                    <p>Could not Set Host at this time. Check your input and try again later...</p>
+                </div>
+                <form>
+                    <div class="form-group col-sm-6">
+                      <label for="hostname">Host Name</label>
+                      <input type="text" class="form-control" id="hostname" aria-describedby="hostnameHelp" placeholder="Enter Host Name" #hostName>
+                      <small id="hostnameHelp" class="form-text text-muted">Enter Host Name for Easier Identification</small>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="ip">IP Address / Domain</label>
+                        <input type="text" class="form-control" id="ip" aria-describedby="ipHelp" placeholder="Enter IP / Domain" #ip>
+                        <small id="ipHelp" class="form-text text-muted">Enter Host IP Address / Domain</small>
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="user">Username</label>
+                        <input type="text" class="form-control" id="user" aria-describedby="userHelp" placeholder="Enter mySQL Username" #user>
+                        <small id="userHelp" class="form-text text-muted">Enter Username for the mySQL remote database</small>
+                      </div>
+                    <div class="form-group col-sm-6">
+                      <label for="hostPW">Password</label>
+                      <input type="password" class="form-control" id="hostPW" placeholder="Password" #password>
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="setRemoteHost(hostName.value , ip.value , user.value , password.value)">Submit</button>
+                  </form>
+                <hr>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-sm-12">
+                <div class="alert alert-danger my-3" role="alert" *ngIf="showErrorAlertUpload">
+                    <h4 class="alert-heading">Upload Error</h4>
+                    <p>We can't seem to contact the database. Make sure you are connected to the internet...</p>
+                </div>
+                <button class="btn btn-lg btn-outline-primary" [disabled]="!remoteHostSet || isUploadingData"  (click)="uploadData()">
+                    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true" *ngIf="isUploadingData"></span>
+                    Upload Data to Database
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
                 <h2>Printer Setup</h2>
             </div>
         </div>

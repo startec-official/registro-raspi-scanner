@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ObservableLike } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user';
 
@@ -13,7 +13,7 @@ export class HttpService {
   constructor( private http : HttpClient ) { }
 
   saveData( userToSave : User ) : Observable<string> {
-    let address : string = `${this.serverURL}/save`;
+    let address : string = `${this.serverURL}/api/save`;
     return this.http.post( address , JSON.stringify(userToSave) , {
       headers : { 'Content-Type' : 'application/json' },
       responseType : 'text'
@@ -23,31 +23,31 @@ export class HttpService {
   uploadKey( fileToUpload : File ) : Observable<string> { // FIXME : add data body
     const formData = new FormData();
     formData.append('fileKey' , fileToUpload , fileToUpload.name); // the name of the field must match that in the server
-    return this.http.post( `${this.serverURL}/upload` , formData , {
+    return this.http.post( `${this.serverURL}/api/upload` , formData , {
       responseType : 'text'
     } );
   }
 
   downloadData() : Observable<Blob> {
-    return this.http.get( `${this.serverURL}/download/encrypted` , {
+    return this.http.get( `${this.serverURL}/api/download/encrypted` , {
       responseType : 'blob'
     });
   }
 
   downloadRawData() : Observable<Blob> {
-    return this.http.get( `${this.serverURL}/download/raw`, {
+    return this.http.get( `${this.serverURL}/api/download/raw`, {
       responseType : 'blob'
     });
   }
 
   generateKeys() : Observable<string> {
-    return this.http.post( `${this.serverURL}/generate` , null , {
+    return this.http.post( `${this.serverURL}/api/generate` , null , {
       responseType : 'text'
     });
   }
 
   getIPAddress() : Observable<string> {
-    return this.http.get( `${this.serverURL}/ip` , {
+    return this.http.get( `${this.serverURL}/api/ip` , {
       responseType : 'text'
     });
   }
