@@ -44,7 +44,7 @@ export class VerifyComponent implements OnInit {
     });
 
     this.route.params.subscribe(( data ) => {
-      this.printMode = data.mode;
+      this.printMode = data.mode == 'print';
       console.log(data.mode);
       let parsedString = this.cryptoService.decryptQr( this.dataTransfer.transferData );
 
