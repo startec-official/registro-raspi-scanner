@@ -18,6 +18,8 @@ export class ScanCodeComponent implements OnInit, DoCheck {
   isLoading : boolean;
   noPrinters : boolean;
 
+  displayIcon : string;
+
   constructor( private router : Router,
                private route : ActivatedRoute,
                private httpService : HttpService,
@@ -29,9 +31,11 @@ export class ScanCodeComponent implements OnInit, DoCheck {
     this.termDetCt = 0;
     this.isLoading = false;
     this.noPrinters = false;
+    this.displayIcon = '';
     this.route.paramMap.subscribe( params => {
       var modeString = params.get('mode');
       this.printMode = modeString == 'print';
+      this.displayIcon = this.printMode ? 'assets/printing.png' : 'assets/qr-code.png';
     });
     this.inputDisabled = this.inputHandler.disabledState;
   }

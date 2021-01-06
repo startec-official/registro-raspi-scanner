@@ -1,7 +1,8 @@
 <div class="container-fluid main-wrapper">
   <div class="row h-100">
     <div class="col-sm-12 my-auto text-center">
-      <h1>{{ !this.printMode ? 'Ready for Next Customer' : 'Ready to print Next Code...' }}</h1>
+      <img [src]="displayIcon" alt="Task Icon" style="width: 10%;">
+      <h1>{{ !this.printMode ? 'Ready for Next Customer' : 'Ready to print Next Code...'}}</h1>
       <h2>Please present your barcode</h2>
       <div class="form-group">
         <label for="code"></label>
