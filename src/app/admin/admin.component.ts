@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   isLoading : boolean;
   isGeneratingData : boolean;
   isGeneratingKeys : boolean;
+  isDeletingData : boolean;
   isUploadingData : boolean;
 
   printerList : string[];
@@ -31,6 +32,7 @@ export class AdminComponent implements OnInit {
   
   showErrorAlertHost: boolean;
   showErrorAlertUpload : boolean;
+  showErrorDelete : boolean;
   showSetHost : boolean;
 
   uploadProgress : number;
@@ -53,6 +55,8 @@ export class AdminComponent implements OnInit {
     this.showErrorAlertHost = false;
     this.showSetHost = false;
     this.isUploadingData = false;
+    this.isDeletingData = false;
+    this.showErrorDelete = false;
     this.showErrorAlertUpload = false;
     this.uploadProgress = 0;
     this.getPrinterList();
@@ -186,6 +190,18 @@ export class AdminComponent implements OnInit {
       this.showErrorAlertUpload = true;
       console.log(error);
     });
+  }
+
+  deleteData() {
+    this.isDeletingData = true;
+    this.httpService.deleteData().subscribe((data) => {
+      console.log(data);
+      this.isDeletingData = false;
+    }),
+    (error) => {
+      this.showErrorDelete = true;
+      console.log(error);
+    };
   }
 
   goToLink(url: string) {

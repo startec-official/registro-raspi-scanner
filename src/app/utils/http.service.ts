@@ -70,4 +70,10 @@ export class HttpService {
       responseType : 'text'
     });
   }
+
+  deleteData() : Observable<string> {
+    return this.http.delete(`${this.serverURL}/api/delete` , {
+      responseType : 'text'
+    });
+  }
 }

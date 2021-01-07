@@ -190,6 +190,30 @@
         </div>
     </div>
     <div class="container mx-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Delete Data</h2>
+            </div>
+        </div>
+        <div class="alert alert-danger my-3" role="alert">
+            <h4 class="alert-heading">Warning</h4>
+            <p>The button below will delete all of the data on this device. Please proceed with <strong>ABSOLUTE CAUTION</strong></p>
+            <hr>
+            <p class="mb-0">Use the button below when you're ready to DELETE ALL OF THE DATA ON THIS DEVICE</p>
+        </div>
+        <div class="alert alert-danger my-3" role="alert" *ngIf="showErrorDelete">
+            <p> <strong>Delete Error</strong> There was an error deleting your data... </p>
+        </div>
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <button class="btn btn-lg btn-danger mb-3" type="button"  (click)="deleteData()" [disabled]="isDeletingData">
+                    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true" *ngIf="isDeletingData"></span>
+                    DELETE ALL DATA ON THIS DEVICE
+                  </button>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-5">
         <hr>
         <div class="row">
             <div class="col-sm-12">
